@@ -32,7 +32,8 @@
 % Brand colors %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[most]{tcolorbox}
 \definecolor{metafg}{HTML}{1C2B33}
-\definecolor{metabg}{HTML}{1A3A8E} % Lexmount deep royal blue
+\definecolor{metabg}{HTML}{1A3A8E} % Lexmount deep royal blue (title block, links)
+\definecolor{wordmark}{HTML}{0C4EAE} % Logo-matching blue for the header wordmark
 
 % First-page header with single logo
 \RequirePackage{fancyhdr}
@@ -45,7 +46,7 @@
         \end{minipage}%
         \hspace{0.18cm}%
         \begin{minipage}[c]{3.2cm}
-            {\sffamily\bfseries\color{metabg}\fontsize{22pt}{26pt}\selectfont Lexmount}%
+            {\sffamily\bfseries\color{wordmark}\fontsize{22pt}{26pt}\selectfont Lexmount}%
         \end{minipage}%
     }
     \renewcommand{\headrulewidth}{1pt}
