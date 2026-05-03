@@ -36,10 +36,17 @@
 
 % First-page header with single logo
 \RequirePackage{fancyhdr}
+\setlength{\headheight}{1.6cm}
 \fancypagestyle{firstheader}{
     \fancyhf{}
     \fancyhead[R]{%
-        \includegraphics[height=0.9cm]{assets/lexmount_logo.png}%
+        \begin{minipage}[c]{1.4cm}\centering
+            \includegraphics[height=1.4cm]{assets/lexmount_logo.png}%
+        \end{minipage}%
+        \hspace{0.2cm}%
+        \begin{minipage}[c]{3.2cm}
+            {\sffamily\bfseries\color{metabg}\Huge Lexmount}%
+        \end{minipage}%
     }
     \renewcommand{\headrulewidth}{1pt}
 }
