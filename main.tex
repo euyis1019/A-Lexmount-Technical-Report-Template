@@ -1,0 +1,114 @@
+\documentclass{lexmount}
+
+% --- Color & table extras ---
+\usepackage{colortbl} % [table]{xcolor} replacement; xcolor is loaded by tcolorbox in lexmount.cls
+\definecolor{tableblue}{RGB}{145, 165, 215}
+\definecolor{tableblueTitle}{RGB}{81, 125, 150}
+
+% --- Symbols ---
+\usepackage{pifont}
+\newcommand{\cmark}{\textcolor{green!70!black}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red!70!black}{\ding{55}}}
+
+% --- tcolorbox extra libraries (most is already loaded by lexmount.cls) ---
+\tcbuselibrary{listings, breakable, skins}
+\usepackage{listings}
+\usepackage{textcomp}
+
+% --- Math ---
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+% --- Lists / tables ---
+\usepackage{enumitem}
+\usepackage{tabularx}
+
+% --- Header link bar icons ---
+\usepackage{fontawesome}
+
+% --- Theorem environments ---
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% --- Appendix naming for cleveref ---
+\crefname{appendix}{Appendix}{Appendices}
+\Crefname{appendix}{Appendix}{Appendices}
+
+% --- Margin notes for drafts ---
+\usepackage[textsize=tiny]{todonotes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE BLOCK
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{LexBench-Browser: A Comprehensive Benchmark for Evaluating Browser Agents in Real-World Scenarios}
+
+\author[*]{Yifu Guo}
+\affiliation[1]{Lexmount}
+\contribution[*]{Corresponding author}
+\email{yifu.guo@lexmount.com}
+\date{\today}
+
+\headercontent{
+    \begin{tabular}{cccc}
+        \href{https://www.github.com}{\faGithub\ Code} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faDatabase\ Models} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faFileTextO\ arXiv} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faGlobe\ Project}
+    \end{tabular}
+}
+
+\abstract{
+Browser agents---autonomous systems capable of navigating websites and completing tasks on behalf of users---represent a promising application of large language models. Yet current benchmarks fail to predict real-world performance due to three systematic limitations: (1) task distribution shift toward information-seeking rather than task-execution scenarios, (2) coarse-grained binary evaluation metrics that provide no diagnostic feedback, and (3) fragmented infrastructure requiring constant maintenance. We introduce \textbf{LexBench-Browser}, a comprehensive benchmark addressing these limitations through three contributions. First, we construct a dataset of 387 tasks across 170+ websites with coverage of information-seeking and task-execution scenarios (67\%/33\%), including 20+ dynamic AI safety tasks. Second, we propose \textbf{rubric-guided process evaluation}, which leverages structured annotations to provide fine-grained diagnostic feedback while achieving substantial efficiency gains. Third, we provide \textbf{open evaluation infrastructure} with login session management for 87 websites, automated CAPTCHA solving, and unified abstractions supporting arbitrary model-scaffold-benchmark combinations. Experiments demonstrate that LexBench-Browser reveals capability gaps invisible to existing benchmarks, while our evaluation methodology achieves higher agreement with human judgments at lower computational cost.
+}
+
+\begin{document}
+\thispagestyle{firstheader}
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SECTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sec/intro}
+\input{sec/dataset}
+\input{sec/evaluation}
+\input{sec/infrastructure}
+\input{sec/experiments}
+\input{sec/related_work}
+\input{sec/conclusion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPACT STATEMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Impact Statement}
+LexBench-Browser provides a realistic and fine-grained benchmark for evaluating browser agents, helping the community identify capability gaps and build more reliable and safe automation systems for assistants, education, and accessibility. At the same time, such technology could be misused for malicious purposes (e.g., phishing or fraud), so we design the benchmark to avoid illegal or sensitive activities, follow privacy regulations, and include safety-oriented tasks, and we encourage responsible deployment with appropriate safeguards and human oversight.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REFERENCES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{plainnat}
+\bibliography{main}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sec/app}
+
+\end{document}

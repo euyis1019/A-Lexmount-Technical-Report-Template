@@ -1,0 +1,75 @@
+% % === Table: Comparison of automatic evaluators ===
+% \begin{table*}[!t]
+% \centering
+% \small
+% \caption{Comparison of automatic web agent evaluation methods.}
+% \resizebox{\textwidth}{!}{
+% \begin{tabular}{lcccccc}
+% \toprule
+% \textbf{Evaluator} 
+% & \textbf{Screenshots} 
+% & \textbf{Action History} 
+% & \textbf{Feedback} 
+% & \textbf{Subgoal} 
+% & \textbf{Controlled Evolution} 
+% & \textbf{Avoid-Answering} \\
+% \midrule
+
+% Autonomous Evaluation~\cite{pan2024autonomousevaluationrefinementdigital} 
+% & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
+
+% AgentTrek~\cite{xu2025agenttrekagenttrajectorysynthesis} 
+% & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
+
+% WebVoyager~\cite{he2024webvoyagerbuildingendtoendweb} 
+% & \cmark & \xmark & \xmark & \xmark & \xmark & \xmark \\
+
+% WebJudge~\cite{onlinemind2web2024} 
+% & \cmark & \cmark & \xmark & \xmark & \xmark & \xmark \\
+
+% \midrule
+% % \rowcolor{tableblue}
+% LexJudge (Ours) 
+% & \cmark & \xmark & \cmark & \cmark & \cmark & \cmark \\
+
+% \bottomrule
+% \end{tabular}
+% }
+% \label{tab:evaluator_comparison}
+% \end{table*}
+% === Table: Comparison of automatic evaluators ===
+\begin{table*}[!t]
+\centering
+\small
+\caption{Comparison with existing automatic evaluation methods.}
+% \resizebox{\textwidth}{!}{
+\begin{tabular}{lccc}
+\toprule
+\textbf{Evaluator} 
+& \textbf{Feedback} 
+& \textbf{Subgoal} 
+& \textbf{Controlled Evolution} \\
+\midrule
+
+Autonomous Evaluation~\cite{pan2024autonomousevaluationrefinementdigital} 
+& \xmark & \xmark & \xmark \\
+
+AgentTrek~\cite{xu2025agenttrekagenttrajectorysynthesis} 
+& \xmark & \xmark & \xmark \\
+
+WebVoyager~\cite{he2024webvoyagerbuildingendtoendweb} 
+& \xmark & \xmark & \xmark \\
+
+WebJudge~\cite{online-mind2web} 
+& \xmark & \xmark & \xmark \\
+
+\midrule
+% \rowcolor{tableblue}
+LexJudge (Ours) 
+& \cmark & \cmark & \cmark \\
+
+\bottomrule
+\end{tabular}
+% }
+\label{tab:evaluator_comparison}
+\end{table*}

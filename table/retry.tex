@@ -1,0 +1,29 @@
+% === Retry Effectiveness Table ===
+\newcommand{\dgain}[1]{\textcolor{blue}{\scriptsize\,($\Delta$#1)}}
+\newcommand{\dloss}[1]{\textcolor{red}{\scriptsize\,($\Delta$#1)}}
+\newcommand{\dbase}[1]{\textcolor{gray}{\scriptsize\,($\Delta$#1)}}
+
+\begin{table}[t]
+\caption{Feedback-guided retry effectiveness on LexBench-Browser. All methods use Browser-Use with the same base model and are evaluated by LexJudge. Deltas are relative to the initial success rate (47.6\%).}
+\centering
+\small
+\begin{tabularx}{\columnwidth}{lXXX}
+\toprule
+Method & Pass@2 & Pass@4 & Pass@6 \\
+\midrule
+Retry
+& 55.6\%\dbase{8.0}
+& 63.1\%\dbase{15.5}
+& 66.3\%\dbase{18.7} \\
+Retry + WebJudge
+& 49.2\%\dloss{1.6}
+& 56.1\%\dloss{8.5}
+& 61.0\%\dloss{13.4} \\
+Retry + LexJudge
+& 55.6\%\dgain{8.0}
+& 69.5\%\dgain{21.9}
+& 71.7\%\dgain{24.1} \\
+\bottomrule
+\end{tabularx}
+\label{tab:retry}
+\end{table}

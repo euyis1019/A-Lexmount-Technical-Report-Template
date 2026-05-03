@@ -1,0 +1,47 @@
+\section{LexJudge: Consistent, Fine-Grained, and Self-Evolving}
+\label{sec:evaluation}
+
+\input{table/input_requirements}
+
+\subsection{From Interpretation to Verification}
+
+Consider the trajectory space $\mathcal{T}$ connecting initial state $s_0$ to goal state $s_*$. The success region $\mathcal{T}^*$ contains all valid paths---typically a connected but complex manifold in $\mathcal{T}$. Existing methods extract features from a single human trajectory $\tau_h$, implicitly defining:
+\begin{equation}
+\hat{\mathcal{T}}^* \approx \{\tau \in \mathcal{T} : d_\phi(\tau, \tau_h) < \epsilon\}
+\label{eq:traj_approx}
+\end{equation}
+where $d_\phi$ measures feature-space distance. This neighborhood approximation introduces two failure modes: (1) rejecting valid trajectories outside $\mathcal{N}_\epsilon(\tau_h)$ but within $\mathcal{T}^*$ (false negatives), and (2) accepting invalid trajectories that superficially resemble $\tau_h$ (false positives). Methods like Online Mind2Web~\cite{online-mind2web} that dynamically generate criteria at evaluation time introduce additional variance: identical trajectories receive different scores across runs.
+
+We reframe evaluation from generation to verification. Rather than $s = \mathcal{J}(q, \tau)$ where the judge must simultaneously interpret and assess, we define success extensionally as in Eq.~\ref{eq:success_region_dataset}, where $R = (R_{\text{norm}}, R_{\text{emp}})$ is the pre-defined rubric from \S\ref{sec:dataset}. The judge verifies whether $\tau \models R_{\text{norm}}$, with $R_{\text{emp}}$ providing context for accurate judgment. This eliminates evaluation-time variance: identical trajectories receive identical scores across runs and judge models.
+
+\subsection{From Binary Verdicts to Fine-Grained Feedback}
+
+Consistency alone is insufficient. Binary verdicts provide no guidance: an agent completing 90\% of steps receives the same ``failure'' as one that immediately diverges.
+
+Our rubric decomposes success into independently verifiable components. Let $R_{\text{norm}}$ contain scoring criteria comprising scoring items $\mathcal{I}$ (positive credits) and deductions $\mathcal{D}$ (penalties):
+\begin{equation}
+S(\tau \mid R) = \sum_{i \in \mathcal{I}} w_i \cdot v_i(\tau) - \sum_{d \in \mathcal{D}} p_d \cdot v_d(\tau)
+\label{eq:score_decomposition}
+\end{equation}
+where $v_c(\tau) \in \{0,1\}$ indicates whether criterion $c$ is satisfied. Scoring items and deductions are mutually exclusive: the former reward goal completion (e.g., ``navigate to checkout''), while the latter penalize undesirable behaviors (e.g., ``submit incorrect information''). Tasks with $S \geq \theta$ (where $\theta = 60$) are classified as successful. Scoring items are designed such that completing the core task objective yields exactly $\theta$ points, while additional criteria capture execution quality beyond minimum requirements.
+
+This decomposition enables precise diagnosis: fine-grained scores reveal which specific criteria were met or violated, guiding targeted improvements. They also serve as dense reward signals for reinforcement learning, addressing credit assignment in long-horizon tasks.
+
+\textbf{Safety Scoring.} For AI safety tasks, scoring criteria contain only deductions $\mathcal{D}$ with no scoring items: agents begin with full credit ($S_{\max} = 100$) and incur penalties for each violation. This reflects the principle that a single vulnerability can compromise an entire system.
+
+\subsection{Controlled Evolution}
+\label{sec:controlled_evolution}
+
+Human annotators cannot anticipate all failure modes. Yet pre-defined criteria are required for consistency. Our partition $R = (R_{\text{norm}}, R_{\text{emp}})$ resolves this: $R_{\text{norm}}$ defines $\mathcal{T}^*$ and remains fixed; $R_{\text{emp}}$ improves recognition of $\mathcal{T}^*$ and evolves.
+
+Each execution round $t$ may reveal previously undocumented patterns: failure modes not previously documented, or valid alternative paths not anticipated. After validation, these update the rubric:
+\begin{equation}
+R_{\text{emp}}^{(t+1)} = R_{\text{emp}}^{(t)} \cup \Delta_t
+\label{eq:empirical_update}
+\end{equation}
+As $R_{\text{emp}}$ grows, the judge's ability to accurately verify $\tau \in \mathcal{T}^*$ improves: accumulated failure patterns reduce false positives; documented valid alternatives reduce false negatives. The success criterion $R_{\text{norm}}$ remains stable while judgment accuracy improves through experience.
+
+The evolution of $R_{\text{emp}}$ can be understood as progressive boundary refinement in trajectory space: failure patterns (\texttt{common\_mistakes}) carve away regions of $\mathcal{T} \setminus \mathcal{T}^*$ that were previously indistinguishable from success; valid alternative paths (\texttt{valid\_paths}) extend coverage to regions of $\mathcal{T}^*$ not reachable from the original annotation. The normative boundary $R_{\text{norm}}$ remains invariant---what improves is the judge's ability to recognize membership in the region it defines.
+
+\paragraph{Evaluation Pipeline.}
+Given trajectory $\tau$ and rubric $R$, LexJudge samples screenshots (first, last, and intermediate frames), filtering out blank and duplicate images, and examines them along with the agent's final answer. For each criterion $c$, it outputs $v_c \in \{0,1\}$, using $R_{\text{emp}}$ as judgment context. The output includes the total score $S$, per-criterion scores for failure localization, and matched empirical patterns (common mistakes for failures, valid paths for successes). Full implementation details and prompts are provided in~\cref{app:implementation-details-lexjudge}.

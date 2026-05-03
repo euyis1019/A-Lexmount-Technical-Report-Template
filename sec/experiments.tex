@@ -1,0 +1,125 @@
+\section{Experiments}
+\label{sec:experiments}
+
+We evaluate state-of-the-art vision-language models and agent frameworks on LexBench-Browser to answer three research questions: (1) How do current agents perform on balanced task distributions? (2) Does rubric-guided evaluation provide better diagnostic feedback than existing methods? (3) What capability gaps does LexBench-Browser reveal?
+
+\subsection{Experimental Setup}
+
+% \textbf{Models.} We evaluate GPT-4o~\cite{openai2024gpt4ocard}, Claude-3.5-Sonnet, Gemini-1.5-Pro~\cite{}, and several open-source alternatives including LLaVA~\cite{liu2023visualinstructiontuning} and Qwen-VL variants.
+
+% \textbf{Agent s.} We test Browser-Use and Agent-TARS frameworks, which represent different approaches to action planning and execution.
+
+% \textbf{Baselines.} For evaluation methodology comparison, we compare against: (1) binary success metrics (standard approach), (2) Online Mind2Web's process evaluation, and (3) human judgment as ground truth.
+
+\noindent \textbf{Models.} We evaluate a diverse set of state-of-the-art vision-language models spanning both proprietary and open-source alternatives. Proprietary models include GPT-5.2, Claude-4.5-Sonnet, Gemini-3-Flash and Gemini-2.5-Flash. We also evaluate DeepSeek-V3, a competitive open-source model. Additionally, we include Browser-Use-30B (BU-30b), a model specifically fine-tuned for browser automation tasks. To ensure reproducibility, we set the temperature to 0.
+
+
+\noindent \textbf{Agent Frameworks.} We evaluate four representative agent frameworks that embody different architectural paradigms: (1) Browser-Use (Hybrid), which combines DOM tree parsing with visual understanding for element grounding; (2) Browser-Use (DOM), a DOM-only variant that relies solely on accessibility tree representations; (3) Skyvern V2, a production-grade framework featuring a multi-layer workflow architecture (Workflow→Block→Task→Action); and (4) SeeClick, a vision-centric approach that performs element localization directly from screenshots. These frameworks represent the spectrum from purely visual to purely structural approaches in browser automation.
+Evaluation Methods. For automatic evaluation, we compare three paradigms: (1) LexJudge (ours), our rubric-guided process evaluation method; (2) WebJudge (Xue et al., 2025a), a step-by-step LLM-as-a-Judge approach that evaluates each screenshot individually; and (3) Only Results Judge, a final-state baseline that judges task completion solely from the final screenshot and agent answer. For LexJudge and baseline evaluators, we experiment with multiple backbone models including GPT-4.1, GPT-4o, Claude Sonnet 4.5, and Gemini 3 Flash. Based on preliminary experiments showing GPT-4.1's superior multimodal reasoning capability (Table 4), we adopt GPT-4.1 as the default backbone for LexJudge in all main experiments unless otherwise specified.
+
+% 
+
+
+\noindent \textbf{Metrics.} We report success rate (\%) computed as the percentage of tasks achieving score ≥60, broken down by task type (T1/T2) and complexity level (L1/L2/L3). For evaluation method comparison, we report accuracy, false negative rate (FNR), false positive rate (FPR), and Cohen's Kappa (κ) against human annotations. We also report token consumption to assess computational efficiency.
+
+
+\subsection{Main Results}
+\label{subsec:main_results}
+\input{table/main_results}
+
+% \cref{tab:main_results} presents performance across task types and complexity levels. Key findings:
+
+% \textbf{Task execution lags information retrieval.} All models show substantially lower performance on T2 (task execution) compared to T1 (information retrieval), with gaps of 15--25\% absolute. This validates our hypothesis that existing benchmarks overestimate practical utility by emphasizing T1 tasks.
+
+% \textbf{Authentication creates significant barriers.} L2 tasks requiring login show 20--30\% lower success rates than comparable L1 tasks, even with our infrastructure handling authentication mechanics. This suggests agents struggle with the state management and error recovery aspects of authenticated workflows.
+
+% \textbf{Chinese websites present unique challenges.} Performance on Chinese websites trails English counterparts by 10--15\%, indicating that training data distribution affects generalization to non-Western web paradigms.
+% \textbf{MC}
+% \cref{tab:mc_effectiveness} shows the effectiveness of planing and context clearing on complex L2/L3 tasks.
+\noindent \textbf{LexBench-Browser rigorously tests GUI-driven capability.} The
+  T1/T2 partition directly measures whether agents function as
+  genuine GUI-driven systems or merely as retrieval pipelines with
+  a browser wrapper. T1 (information retrieval) success rates
+  span 38.5--60.0\%, consistent with prior web-agent benchmarks,
+  while T2 (task execution)---requiring stateful manipulation of
+  user-bound resources such as account settings and service
+  configurations---drops to at most 40.5\%, with the weakest model at
+  8\%. The consistent 13--29 pp gap across all configurations
+  confirms that current agents handle observation far better than
+  action. As corroborating evidence, we evaluate
+  OpenAI-DeepResearch and Gemini-DeepResearch on LexBench-Browser
+  and find that OpenAI-DeepResearch attains L1/L2 success rates of
+  55\%/53\% and Gemini-DeepResearch 49\%/46\%; on the subset they
+  can handle, these text-based systems actually outperform GUI
+  agents thanks to cleaner textual context free from
+  browser-interaction noise. This confirms that
+  the authenticated, action-oriented core of LexBench-Browser
+  constitutes a genuinely GUI-driven evaluation surface that
+  cannot be gamed by retrieval pipelines.
+
+\noindent \textbf{Framework and model analysis.} Browser-Use (Hybrid) consistently
+  outperforms its DOM-only variant by 4--9 pp and Skyvern by
+  roughly 6 pp, confirming that fusing DOM structure with visual input
+  provides complementary signals for complex GUI tasks. Skyvern's
+  lower accuracy partly stems from its multi-layer workflow
+  architecture (Workflow$\to$Block$\to$Task$\to$Action), which incurs
+  7.7$\times$ higher per-task token consumption than Browser-Use's
+  flat ReAct loop under controlled conditions. Model differences
+  are amplified on harder slices: within Browser-Use (Hybrid), the
+  strongest--weakest gap widens from 12.5 pp on T1 to 13.5 pp on
+  T2 on a much lower baseline, showing that LexBench-Browser's
+  harder slices provide stronger discriminative power.
+
+
+\noindent \textbf{Safety-critical tasks expose a universal weakness.} L3
+  tasks---which involve security-sensitive scenarios such as phishing
+  detection, deceptive UI recognition, and risk-laden
+  workflows---prove uniformly challenging across all evaluated
+  configurations. The best L3 success rate is merely 30\%
+  (Skyvern, GPT-5.2), while within the strongest framework
+  (Browser-Use Hybrid) L3 performance ranges from only 16--24\%,
+  compared to 50--63\% on L1 and 37--48\% on L2. Notably, Skyvern
+  achieves the highest L3 scores (27--30\%) despite its lower overall
+  accuracy, likely because its multi-layer
+  Workflow$\to$Block$\to$Task$\to$Action loop resets context at each
+  stage, mitigating context rot from long browsing trajectories and
+  thereby preserving sharper safety-relevant signals. Cross-model
+  variance on L3 is notably compressed relative to easier tiers,
+  indicating that no current model possesses meaningfully stronger
+  safety awareness in GUI-grounded settings. This uniform
+  degradation suggests that existing LLM safety alignment---designed
+  primarily for text-based refusal---does not transfer effectively
+  to agentic web environments where threats emerge from realistic
+  interactions (e.g., phishing pages, deceptive interfaces) rather
+  than explicit adversarial prompts.
+
+
+
+\subsection{LexJudge Evaluation}
+\label{sec:lexjudge_eval}
+\textbf{Convergence of $R_{\text{emp}}$.}
+To validate the controlled evolution mechanism, we iteratively refine $R_{\text{emp}}$ using 10 trajectories per task sampled from diverse model-framework combinations. The number of newly discovered patterns decreases rapidly, with growth rate dropping significantly after iteration 5 and converging to approximately 3.8 entries per task (3.2 common mistakes and 0.6 valid paths). This asymmetry reveals that correct execution paths are relatively constrained, while failure modes are diverse.
+
+We evaluate $R_{\text{emp}}$ snapshots at iterations 0, 3, 5, 7, and 10 on 250 held-out trajectories. Iterations 5, 7, and 10 achieve comparable performance (Accuracy $\approx$ 90\%, FPR $\approx$ 9\%), while iteration 0 shows notably higher false positive rates (15.4\%), confirming that \texttt{common\_mistakes} effectively reduce misjudgments.
+
+Since each iteration incurs computational cost, we adopt early stopping when marginal gains diminish. Although growth rate slows after iteration 5, we conservatively continue to iteration 10 for LexBench-Browser to ensure sufficient pattern coverage, while Online-Mind2Web stops at iteration 6. \textbf{All subsequent experiments use the converged $R_{\text{emp}}$.} Details and qualitative analysis are provided in Appendix~\ref{app:remp_details}.
+
+\textbf{Agreement with Human Judgment.}
+We uniformly sample 200 trajectories from LexBench-Browser according to the difficulty distribution and have three expert annotators label each trajectory. Detailed annotation guidelines are provided in \Cref{app:how_to_labeler}.
+
+% === Human Agreement Table ===
+\input{table/lexjudge_human_agreement}
+
+As shown in \cref{tab:lexjudge_human_agreement}, when our evaluation interface can supply a sufficiently rich set of intermediate screenshots to the judge (i.e., without aggressive truncation of visual context), LexJudge achieves the highest accuracy and strongest agreement with human judgment. With GPT-4.1, LexJudge attains 90\% accuracy ($\kappa = 0.80$, substantial agreement), outperforming both WebJudge (78\%, $\kappa = 0.57$) and Only Results Judge (78\%, $\kappa = 0.56$) by a wide margin. A consistent advantage holds with GPT-4o, where LexJudge (86\%, $\kappa = 0.72$) surpasses both baselines. Notably, LexJudge with GPT-4.1 also exceeds WebJudge's recommended o4-mini configuration (81\%). This advantage partly stems from lower false positive rates, benefiting from the \texttt{common\_mistakes} field in $R_{\text{emp}}$, which provides explicit guidance on subtle failure patterns that are easy to overlook.
+
+However, for models with more limited multimodal input capacity---Claude Sonnet 4.5 and Gemini 3 Flash---all process-based methods exhibit degraded performance. LexJudge with Claude Sonnet 4.5 (80\%) falls behind its Only Results counterpart (86\%), and with Gemini 3 Flash drops further to 60\% versus 72\%. WebJudge shows the same pattern, achieving only 64\% with Claude Sonnet 4.5 and 56\% with Gemini 3 Flash. This consistent degradation across both process-based methods suggests that their advantage hinges on sufficient intermediate visual context. When our evaluation interface must cap or drop intermediate screenshots due to per-request attachment limits, the judge receives truncated evidence, increasing noise and making result-only evaluation more robust. From a cost perspective, LexJudge requires a single API call per trajectory---a 20$\times$ reduction over WebJudge---while consuming approximately 18$\times$ fewer tokens. Combined with its accuracy advantage under adequate multimodal capacity, LexJudge provides the best accuracy--efficiency tradeoff among all evaluated methods.
+
+\input{table/retry.tex}
+\textbf{Fine-Grained Feedback Effectiveness.}
+The diagnostic insights reported in \cref{subsec:main_results}---identifying that task execution lags information retrieval, authentication creates barriers, and Chinese websites present unique challenges---were enabled by LexJudge's detailed feedback. During our analysis, structured scoring outputs allowed us to rapidly pinpoint failure modes: which specific rubric items agents failed, which known error patterns they matched, and at what stage execution diverged. This stands in contrast to binary evaluation, where diagnosing systematic weaknesses requires manual inspection of hundreds of trajectories.
+
+Beyond research diagnostics, fine-grained feedback can directly improve agent performance through automated retry. We evaluate this using Browser-Use on LexBench-Browser: after an initial run on all 187 tasks (47.6\% success rate), we retry failed cases under three conditions: blind retry, retry with WebJudge feedback, and retry with LexJudge feedback. All retry results are evaluated by LexJudge (whose reliability is established in \cref{tab:lexjudge_human_agreement}). As shown in \cref{tab:retry}, LexJudge feedback yields substantial gains at Pass@4 (+21.9\%) and Pass@6 (+24.1\%) over the initial run, significantly outperforming both blind retry and WebJudge feedback. Notably, WebJudge feedback degrades performance compared to blind retry, likely due to generic feedback introducing noise. This demonstrates that structured rubrics with explicit failure patterns provide actionable guidance that holistic feedback cannot. Qualitative examples and detailed analysis are provided in \Cref{app:feedback}.
+
+
+\textbf{Generalization to External Benchmarks.}
+We apply LexJudge to OnlineMind2Web, constructing rubrics directly from its task descriptions. As shown in \Cref{tab:lexjudge_generalization_omw}, LexJudge achieves superior agreement with human judgment compared to WebJudge on its native benchmark while maintaining efficiency gains. Additionally, we also conduct extra generalization experiments on AgentRewardBench and observe consistent conclusions. Additional generalization experiments are provided in \Cref{app:generalization} and \Cref{app:generalization2}

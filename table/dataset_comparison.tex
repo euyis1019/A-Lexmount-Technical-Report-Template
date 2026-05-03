@@ -1,0 +1,31 @@
+% === Table: Comparison with existing benchmarks ===
+\begin{table*}[!t]
+\centering
+\small
+\caption{Comparison with existing benchmarks for web browsing or search.}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccccc}
+\toprule
+\textbf{Dataset} & \textbf{\#Domains} & \textbf{\#Tasks} & \textbf{Realistic Env.} & \textbf{Time-Varying} & \textbf{Evaluation} & \textbf{Chinese}& \textbf{Login} & \textbf{Refusal}\\
+\midrule
+MiniWoB++ ~\cite{furuta2024multimodalwebnavigationinstructionfinetuned} &  -   &   100 & \xmark & \cmark & Rule    &  \xmark&\xmark & \xmark \\
+WebVoyager~\cite{he2024webvoyagerbuildingendtoendweb} & 15   &   643   & \cmark      & \cmark& LLM-as-a-Judge      & \xmark &\xmark & \xmark    \\
+Online-Mind2Web~\cite{xue2025illusionprogressassessingcurrent}      & 12   & 300   & \cmark & \cmark & LLM-as-a-Judge      & \xmark &\xmark & \xmark  \\
+Mind2Web-Live ~\cite{pan2024webcanvasbenchmarkingwebagents}       & 5    & 542   & \cmark & \cmark & Rule                & \xmark  &\xmark & \xmark \\
+BrowseComp ~\cite{wei2025browsecompsimplechallengingbenchmark}          & 10   & 1266  & \cmark & \xmark & Answer Match        & \cmark  &\xmark & \xmark \\
+Mind2Web 2    ~\cite{gou2025mind2web2evaluatingagentic}       & 6    & 130   & \cmark & \cmark & Agent-as-a-Judge    & \xmark &\xmark & \xmark  \\
+WebTrap Park ~\cite{wu2026webtrapparkautomatedplatform}   &   - & 1,226 &\xmark  & - &   Rule \& LLM-as-a-Judge& \xmark&  \xmark& \cmark\\
+SafeArena~\cite{tur2025safearenaevaluatingsafetyautonomous}   &   4 & 500 &\cmark  & \xmark &   Rule \& LLM-as-a-Judge& \xmark&  \cmark& \cmark\\
+BrowserART~\cite{kumar2025aligned}   &   19 &100 &\xmark  & -&  Heuristic \& LLM-as-a-Judge& \xmark&  \cmark& \cmark\\
+WebArena          ~\cite{zhou2024webarenarealisticwebenvironment}   & 4    & 812   & \cmark & \xmark & Rule                & \xmark  & \cmark& \xmark \\
+VisualWebArena    ~\cite{koh2024visualwebarenaevaluatingmultimodalagents}   & 3    & 910   & \cmark & \xmark & Rule                & \xmark & \cmark& \xmark \\
+Mind2Web~\cite{deng2023mind2webgeneralistagentweb}             & 5    & 2350  & \cmark & \xmark & Rule                & \xmark  & \xmark & \xmark \\
+
+\midrule
+ % \rowcolor{tableblue}
+LexBench-Browser     &  6 & 387  & \cmark & \cmark &  Agent-as-a-Judge          & \cmark & \cmark & \cmark\\
+\bottomrule
+\end{tabular}
+}
+\label{tab:dataset_comparison}
+\end{table*}

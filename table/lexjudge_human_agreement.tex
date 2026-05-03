@@ -1,0 +1,35 @@
+% === LexJudge Human Agreement Table ===
+\begin{table}[t]
+\caption{Agreement with human judgment on 200 sampled trajectories (three expert annotators). $\kappa$: Cohen's Kappa; Tok.: average input tokens per trajectory (in thousands). Only Results Judge implementation details are provided in~\cref{app:only_results_judge}.}
+\centering
+\small
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.05}
+\begin{tabularx}{\columnwidth}{@{}lcccccc@{}}
+\toprule
+\textbf{Method} & \textbf{Acc.} & \textbf{FNR} & \textbf{FPR} & $\boldsymbol{\kappa}$ & \textbf{Tok.} & \textbf{Calls} \\
+\midrule
+\rowcolor{gray!20}
+\multicolumn{7}{l}{\textit{LexJudge (Ours)}} \\
+\quad GPT-4.1              & \textbf{90\%} & 11\% & 9\% & \textbf{0.80} & 12.3k & 1 \\
+\quad GPT-4o               & 86\% & 11\% & 17\% & 0.72 & 12.1k & 1 \\
+\quad Claude Sonnet 4.5    & 80\% & 30\% & 9\% & 0.61 & 13.6k & 1 \\
+\quad Gemini 3 Flash       & 60\% & 70\% & 4\% & 0.24 & 15.0k & 1 \\
+\midrule
+\rowcolor{gray!20}
+\multicolumn{7}{l}{\textit{WebJudge}} \\
+\quad GPT-4.1              & 78\% & 24\% & 19\% & 0.57 & 218.8k & 20.3 \\
+\quad GPT-4o               & 74\% & 24\% & 29\% & 0.47 & 210.7k & 19.5 \\
+\quad Claude Sonnet 4.5    & 64\% & 56\% & 13\% & 0.30 & 213.8k & 20.4 \\
+\quad Gemini 3 Flash       & 56\% & 81\% & 0\% & 0.17 & 205.2k & 19.7 \\
+\midrule
+\rowcolor{gray!20}
+\multicolumn{7}{l}{\textit{Only Results Judge}} \\
+\quad GPT-4.1              & 78\% & 30\% & 13\% & 0.56 & 2.7k & 1 \\
+\quad GPT-4o               & 80\% & 19\% & 22\% & 0.60 & 2.5k & 1 \\
+\quad Claude Sonnet 4.5    & 86\% & 22\% & 4\% & 0.72 & 5.0k & 1 \\
+\quad Gemini 3 Flash       & 72\% & 52\% & 0\% & 0.46 & 4.0k & 1 \\
+\bottomrule
+\end{tabularx}
+\label{tab:lexjudge_human_agreement}
+\end{table}

@@ -1,0 +1,17 @@
+\section{LexBench Platform}
+\label{sec:platform}
+
+Existing ecosystems such as BrowserGym~\cite{drouin2024workarenacapablewebagents} and AgentLab~\cite{dechezelles2025browsergymecosystemwebagent} provide unified interaction abstractions for browser agents, enabling comparison across models and scaffolds. However, their evaluation setups implicitly assume fixed configurations: authentication states are avoided, and evaluation criteria are tightly coupled to specific benchmarks. As a result, it is difficult to fairly compare different agent frameworks or to perform controlled ablations over the evaluation methodology itself. LexBench addresses these limitations through the following design.
+
+\paragraph{Compositional Evaluation Configuration.}
+LexBench models each evaluation instance as a six-tuple:
+\[
+\begin{aligned}
+(&\textsc{Model}, \textsc{Scaffold}, \textsc{Agent}, \\
+&\textsc{Benchmark}, \textsc{Judge}, \textsc{Browser})
+\end{aligned}
+\]
+Notably, LexBench explicitly decouples the Judge from the Benchmark, enabling both evaluation methods and datasets to be validated with greater generalizability. We integrate several production-grade, widely-adopted agent frameworks, rather than scaffolds alone, ensuring that evaluation reflects real-world deployment scenarios. This design enables researchers focusing on different components to rapidly obtain comprehensive results without extensive integration effort: model developers can benchmark across multiple agents and datasets to identify model-specific strengths and improvement directions; agent developers can evaluate their systems across diverse benchmarks and models under consistent protocols; benchmark designers can assess how different judges and agents behave on identical execution traces. We provide integrated support for mainstream agents, evaluation methods, and browser backends (\cref{app:lexbench_platform}), and will open-source the full platform to facilitate reproducible research in the web agent community.
+
+\paragraph{Infrastructure for Real-World Evaluation.}
+Unlike prior work relying on static pages or sandboxed environments, LexBench evaluates on live websites with authentication requirements. We maintain a pool of authenticated sessions for 87 websites through a cloud browser service, with continuous monitoring and automatic refresh before expiration. This infrastructure---detailed in Appendix~\cref{app:lexbench_platform}---enables L2/L3 task evaluation without requiring researchers to manage credentials or handle CAPTCHAs manually.

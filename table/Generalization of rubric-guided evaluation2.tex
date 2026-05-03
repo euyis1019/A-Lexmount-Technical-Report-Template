@@ -1,0 +1,27 @@
+% Requires: \usepackage{booktabs}
+\begin{table}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\caption{We follow previous settings and report the precision results on AgentRewardBench ~\cite{lù2025agentrewardbenchevaluatingautomaticevaluations}.
+To ensure a fair comparison, we use the same version of GPT-4o (gpt-4o-2024-11-20) for LexJudge.
+GPT-4o (A11y Tree) denotes the previous best result based on the accessibility tree.
+* indicates results are taken from ~\citet{lù2025agentrewardbenchevaluatingautomaticevaluations}.}
+\label{tab:agentrewardbench_precision}
+\begin{tabular}{lcccccc}
+\toprule
+Methods & AB & VWA & WA & Work & Wk++ & Overall \\
+\midrule
+Rule-based*            & 25.0 & 85.2 & 79.0 & 100.0 & 83.3 & 83.8 \\
+Autonomous Eval*       & 83.3 & 61.2 & 67.6 & 96.4  & 59.3 & 67.6 \\
+GPT-4o (A11y Tree)*    & 77.8 & 63.0 & 70.2 & 94.6  & 63.0 & 69.8 \\
+WebJudge (GPT-4o)      & 66.7 & 69.8 & 72.6 & 92.3  & 75.0 & 73.7 \\
+WebJudge-7B            & 80.0 & 66.7 & 77.5 & 100.0 & 70.0 & 75.7 \\
+WebJudge (o4-mini)     & 100.0 & 74.5 & 81.2 & 100.0 & 90.0 & 82.0 \\
+\midrule
+ \rowcolor{tableblue}
+ LexJudge (GPT-4o)   &100.0 &86.1 &82.5 & 100.0 &91.5   &92.02 \\
+  \rowcolor{tableblue}
+LexJudge (o4-mini)   &100.0 &87.2 &83.6 & 100.0 &92.1   &92.58  \\\bottomrule
+\end{tabular}
+\end{table}

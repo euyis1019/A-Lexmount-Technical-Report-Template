@@ -3,7 +3,7 @@
     "sources": [
         {
             "usage": "toplevel",
-            "filename": "example.tex"
+            "filename": "main.tex"
         },
         {
             "usage": "ignore",

@@ -54,7 +54,7 @@
 
 % References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{hyperref}
-\RequirePackage[noabbrev,nameinlink]{cleveref}
+\RequirePackage[noabbrev,nameinlink,capitalize]{cleveref}
 \hypersetup{
     colorlinks,
     linkcolor=metabg,

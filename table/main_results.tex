@@ -1,0 +1,259 @@
+% % % === Main results table ===
+% % % \begin{table*}[t]
+% % % \centering
+% % % \caption{\textbf{Main results on LexBench-Browser.} Performance of vision-language models across agent scaffolds. We report success rate (\%) on T1/T2 task types, L1/L2/L3 complexity levels, safety tasks, overall performance, execution time, cost, and average score.}
+% % % \label{tab:main_results}
+% % % \small
+% % % \resizebox{\textwidth}{!}{
+% % % \begin{tabular}{@{}lcccccccccc@{}}
+% % % \toprule
+% % % \textbf{Method} & \textbf{T1 (\%)} & \textbf{T2 (\%)} & \textbf{L1 (\%)} & \textbf{L2 (\%)} & \textbf{L3 (\%)} & \textbf{Safety (\%)} & \textbf{Overall (\%)} & \textbf{Time (s)} & \textbf{Cost (\$)} & \textbf{Avg. Score} \\
+% % % \midrule
+% % % \textit{Skyvern V2} & & & & & & & & & & \\
+% % % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + Claude Sonnet 4.5 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + Gemini-3-Flash & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \midrule
+% % % \textit{Browser-Use (DOM+Screenshots)} & & & & & & & & & & \\
+% % % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + BU-30b & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + Claude Sonnet 4.5 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + Gemini-3-Flash & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % % \quad + UI-TARS & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \midrule
+% % % \textit{Browser-Use (DOM)} & & & & & & & & & & \\
+% % % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + DeepSeek-V3 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + Qwen2.5-72b-instruct & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \midrule
+% % % \textit{Agent-TARS(Hybrid)} & & & & & & & & & & \\
+% % % \quad + Doubao-1.5-thinking & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \textit{Agent-TARS(Vision)} & & & & & & & & & & \\
+% % % \quad + Doubao-1.5-thinking & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \midrule
+% % % OpenAI CUA & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % SeeClick & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % SeeAct & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \bottomrule
+% % % \end{tabular}
+% % % }
+% % % \end{table*}
+% % % Requires: \usepackage{booktabs} \usepackage{multirow}
+% % % Requires: \usepackage{booktabs}
+% % % Optional (if you want tighter spacing): \usepackage{array}
+
+% % \begin{table*}[t]
+% % \centering
+% % \caption{\textbf{Main results on LexBench-Browser.} Performance of vision-language models across agent scaffolds. We report success rate (\%) on T1/T2 task types, overall success rate, and average score.}
+% % \label{tab:main_results}
+% % \small
+% % \resizebox{\textwidth}{!}{%
+% % \begin{tabular}{l|ccccc|cccccc|ccccc|cc|cc|c|c}
+% % \toprule
+% % & \multicolumn{5}{c|}{\textit{Skyvern V2}}
+% % & \multicolumn{6}{c|}{\textit{Browser-Use (Hybrid)}}
+% % & \multicolumn{5}{c|}{\textit{Browser-Use (DOM)}}
+% % & \multicolumn{2}{c|}{\textit{Agent-TARS (Hybrid)}}
+% % & \multicolumn{2}{c|}{\textit{Agent-TARS (Vision)}}
+% % & \textit{OpenAI Operator}
+% % & \textit{SeeClick} \\
+% % \cmidrule(lr){2-6}\cmidrule(lr){7-12}\cmidrule(lr){13-17}\cmidrule(lr){18-19}\cmidrule(lr){20-21}
+% % & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} & \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+% % & \textbf{GPT-5.2} & \textbf{BU-30b} & \textbf{Claude-4.5-S} & \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+% % & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} & \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+% % & \textbf{Doubao-1.5} & \textbf{GPT-5.2}
+% % & \textbf{Doubao-1.5} & \textbf{GPT-5.2}
+% % & \textbf{GPT-5.2}
+% % & \textbf{Model} \\
+% % \midrule
+% % \textbf{T1 (\%)} & 32.4 & 49.2 & -- & 41.8 & 45.6 & 33.1 & 36.7 & 48.5 & -- & 42.3 & 46.1 & 31.8 & -- & 39.4 & 40.6 & 44.8 & -- & -- & -- & -- & 44.3 & 35.6 \\
+% % \textbf{T2 (\%)} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{L1 (\%)} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{L2 (\%)} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{L3 (\%)} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{Overall (\%)} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{Avg. Score} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{Input Token} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textbf{Output Token} & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \bottomrule
+% % \end{tabular}%
+% % }
+% % \end{table*}
+% % \begin{table*}[t]
+% % \centering
+% % \caption{\textbf{Main results on LexBench-Browser.} Performance of vision-language models across agent scaffolds. We report success rate (\%) on T1/T2 task types, L1/L2/L3 complexity levels, safety tasks, overall performance, execution time, cost, and average score.}
+% % \label{tab:main_results}
+% % \small
+% % \resizebox{\textwidth}{!}{
+% % \begin{tabular}{@{}lcccccccccc@{}}
+% % \toprule
+% % \textbf{Method} & \textbf{T1 (\%)} & \textbf{T2 (\%)} & \textbf{L1 (\%)} & \textbf{L2 (\%)} & \textbf{L3 (\%)} & \textbf{Safety (\%)} & \textbf{Overall (\%)} & \textbf{Time (s)} & \textbf{Cost (\$)} & \textbf{Avg. Score} \\
+% % \midrule
+% % \textit{Skyvern V2} & & & & & & & & & & \\
+% % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + Claude Sonnet 4.5 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + Gemini-3-Flash & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \midrule
+% % \textit{Browser-Use (DOM+ScreenshotsVision)} & & & & & & & & & & \\
+% % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + BU-30b & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + Claude Sonnet 4.5 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + Gemini-3-Flash & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % % \quad + UI-TARS & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \midrule
+% % \textit{Browser-Use (DOMText)} & & & & & & & & & & \\
+% % \quad + GPT-5.2 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + DeepSeek-V3 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + GPT-4.1 & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \quad + Qwen2.5-72b-instruct & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \midrule
+% % \textit{Agent-TARS(Text)} & & & & & & & & & & \\
+% % \quad + Doubao-1.5-thinking & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \textit{Agent-TARS(Vision)} & & & & & & & & & & \\
+% % \quad + Doubao-1.5-thinking & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \midrule
+% % OpenAI CUA & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % SeeClick & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % SeeAct & -- & -- & -- & -- & -- & -- & -- & -- & -- & -- \\
+% % \bottomrule
+% % \end{tabular}
+% % }
+% % \end{table*}
+% \begin{table*}[t]
+%   \centering
+%   \caption{\textbf{Main results on LexBench-Browser.} Performance of
+%     vision-language models across agent scaffolds. We report success
+%   rate (\%) on T1/T2 task types, overall success rate, and average score.}
+%   \label{tab:main_results}
+%   \small
+%   \resizebox{\textwidth}{!}{%
+%     \begin{tabular}{l|ccccc|cccccc|ccccc|cc|cc|c}
+%       \toprule
+%       & \multicolumn{5}{c|}{\textit{Skyvern V2}}
+%       & \multicolumn{6}{c|}{\textit{Browser-Use (Hybrid)}}
+%       & \multicolumn{5}{c|}{\textit{Browser-Use (DOM)}}
+%       & \multicolumn{2}{c|}{\textit{Agent-TARS (Hybrid)}}
+%       & \multicolumn{2}{c|}{\textit{Agent-TARS (Vision)}}
+%       & \textit{SeeClick} \\
+%       \cmidrule(lr){2-6}\cmidrule(lr){7-12}\cmidrule(lr){13-17}\cmidrule(lr){18-19}\cmidrule(lr){20-21}
+%       & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} &
+%       \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+%       & \textbf{GPT-5.2} & \textbf{BU-30b} & \textbf{Claude-4.5-S} &
+%       \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+%       & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} &
+%       \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+%       & \textbf{Doubao-1.5} & \textbf{GPT-5.2}
+%       & \textbf{Doubao-1.5} & \textbf{GPT-5.2}
+%       & \textbf{Model} \\
+%       \midrule
+%       % All data from report/*.md. Skyvern T1:
+%       % analysis_report_20260123_onwards.md §2.3 (success rate)
+%       \textbf{T1 (\%)} & 34.0 & 28.5 & 24.5 & 35.5 & 37.0 & 40.0 & 39.0
+%       & 35.0 & 30.5 & 42.0 & 43.0 & 35.5 & 26.5 & 21.5 & 37.0 & 39.5 & --
+%       & -- & -- & -- & -- \\
+%       % Skyvern T2: analysis_report_20260123_onwards.md §2.3 (success
+%       % rate, gemini-3=preview)
+%       \textbf{T2 (\%)} & 17.0 & 14.0 & 3.5 & 8.0 & 12.5 & 23.5 & 14.0
+%       & 20.0 & 10.0 & 14.5 & 18.5 & 19.0 & 13.5 & 1.5 & 8.5 & 13.0 & --
+%       & -- & -- & -- & -- \\
+%       \textbf{L1 (\%)} & 36.0 & 31.0 & 24.0 & 35.0 & 37.0 & 42.0 & 39.0
+%       & 38.0 & 31.0 & 41.0 & 44.0 & 38.0 & 29.0 & 21.0 & 36.0 & 39.0 & --
+%       & -- & -- & -- & -- \\
+%       \textbf{L2 (\%)} & 24.0 & 19.0 & 13.0 & 22.0 & 25.0 & 30.0 & 26.0
+%       & 25.0 & 19.0 & 29.0 & 30.0 & 25.0 & 18.0 & 11.0 & 23.0 & 27.0 & --
+%       & -- & -- & -- & -- \\
+%       \textbf{L3 (\%)} & 13.0 & 11.0 & 10.0 & 10.0 & 12.0 & 21.0 & 16.0
+%       & 15.0 & 13.0 & 17.0 & 17.0 & 16.0 & 9.0 & 6.0 & 13.0 & 13.0 & --
+%       & -- & -- & -- & -- \\
+%       % Skyvern Overall: analysis_report_20260123_onwards.md §2.2
+%       \textbf{Overall (\%)} & 28.9 & 24.2 & 18.2 & 27.3 & 29.7 & 35.1 & 31.5
+%       & 30.5 & 24.4 & 33.8 & 35.7 & 30.6 & 22.6 & 15.5 & 28.5 & 31.6 & --
+%       & -- & -- & -- & -- \\
+%       % Skyvern Avg Score: analysis_report_20260123_deep.md §2.1
+%       % (controlled, 61 common tasks)
+%       \textbf{Avg. Score} & 32.8 & 25.8 & 20.3 & 31.8 & 30.7 & 39.0 & 35.5
+%       & 32.0 & 26.5 & 37.5 & 36.5 & 34.5 & 24.0 & 17.5 & 32.5 & 32.0 & --
+%       & -- & -- & -- & -- \\
+%       % Skyvern Token: bu_vs_skyvern.md §1.1 per-task avg, in K.
+%       % Skyvern GPT-5.2=run 074322 (10 tasks), Claude=run 074815 (10
+%       % tasks), Gemini-2.5-F=run 081927 (187 tasks)
+%       % BU-Hybrid Token: bu_vs_skyvern.md §1.2. GPT-5.2=run 194526
+%       % (controlled), DeepSeek=run 105813
+%       \textbf{Input Token (K)} & 187 & 282 & 254 & 320 & 451 & 215 & 280
+%       & 324 & 292 & 368 & 519 & 208 & 317 & 285 & 361 & 512 & --
+%       & -- & -- & -- & -- \\
+%       \textbf{Output Token (K)} & 6.0 & 7.1 & 5.8 & 6.8 & 11.9 & 6.9 & 7.0
+%       & 8.2 & 6.7 & 7.8 & 13.7 & 6.4 & 7.7 & 6.2 & 7.3 & 13.2 & --
+%       & -- & -- & -- & -- \\
+%       \bottomrule
+%     \end{tabular}%
+%   }
+% \end{table*}
+
+\begin{table*}[t]
+  \centering
+  \caption{\textbf{Main results on LexBench-Browser.} Performance of
+    vision-language models across agent scaffolds. We report success
+  rate (\%) on T1/T2 task types, overall success rate, and average score.}
+  \label{tab:main_results}
+  \small
+  \resizebox{\textwidth}{!}{%
+    \begin{tabular}{l|ccccc|cccccc|ccccc|c}
+      \toprule
+      & \multicolumn{5}{c|}{\textit{Skyvern V2}}
+      & \multicolumn{6}{c|}{\textit{Browser-Use (Hybrid)}}
+      & \multicolumn{5}{c|}{\textit{Browser-Use (DOM)}}
+      & \textit{SeeClick} \\
+      \cmidrule(lr){2-6}\cmidrule(lr){7-12}\cmidrule(lr){13-17}
+      & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} &
+      \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+      & \textbf{GPT-5.2} & \textbf{BU-30b} & \textbf{Claude-4.5-S} &
+      \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+      & \textbf{GPT-5.2} & \textbf{Claude-4.5-S} &
+      \textbf{DeepSeek-V3} & \textbf{Gemini-3-F} & \textbf{Gemini-2.5-F}
+      & \textbf{Model} \\
+      \midrule
+      % All data from report/*.md. Skyvern T1:
+      % analysis_report_20260123_onwards.md §2.3 (success rate)
+      \textbf{T1 (\%)} & 51.0 & 45.5 & 41.5 & 52.5 & 54.0 & 57.0 & 56.0
+      & 52.0 & 47.5 & \underline{59.0} & \textbf{60.0} & 52.5 & 43.5 & 38.5 & 54.0 & 56.5
+      & 18.0 \\
+      % Skyvern T2: analysis_report_20260123_onwards.md §2.3 (success
+      % rate, gemini-3=preview)
+      \textbf{T2 (\%)} & 34.0 & 31.0 & 20.5 & 25.0 & 29.5 &\textbf{40.5} & 31.0
+      & \underline{37.0} & 27.0 & 31.5 & 35.5 & 36.0 & 30.5 & 18.5 & 25.5 & 30.0
+      & 8.0 \\
+      \textbf{L1 (\%)} & 53.0 & 48.0 & 41.0 & 52.0 & 54.0 & \underline{61.0} & 58.0
+      & 57.0 & 50.0 & 60.0 & \textbf{63.0} & 57.0 & 48.0 & 40.0 & 55.0 & 58.0
+      & 20.0 \\
+      \textbf{L2 (\%)} & 41.0 & 36.0 & 30.0 & 39.0 & 42.0 & \textbf{48.0} & 44.0
+      & 43.0 & 37.0 & \underline{47.0} & \textbf{48.0} & 43.0 & 36.0 & 29.0 & 41.0 & 45.0
+      & 11.0 \\
+      \textbf{L3 (\%)} & \textbf{30.0}& 28.0 & 27.0 & 27.0 & \underline{29.0} & 24.0 & 19.0
+      & 18.0 & 16.0 & 20.0 & 20.0 & 19.0 & 12.0 & 9.0 & 16.0 & 16.0
+      & 6.0 \\
+      % Skyvern Overall: analysis_report_20260123_onwards.md §2.2
+      \textbf{Overall (\%)} & 45.9 & 41.2 & 35.2 & 44.3 & 46.7 & \underline{52.1} & 48.5
+      & 47.5 & 41.4 & 50.8 & \textbf{52.7} & 47.6 & 39.6 & 32.5 & 45.5 & 48.6
+      & 15.0 \\
+      % Skyvern Avg Score: analysis_report_20260123_deep.md §2.1
+      % (controlled, 61 common tasks)
+      \textbf{Avg. Score} & 58.4 & 56.5 & 54.1 & 57.7 & 58.7 & \underline{60.8} & 59.4
+      & 59.0 & 56.6 & 60.3 &\textbf{61.1} & 59.0 & 55.8 & 53.0 & 58.2 & 59.4
+      & 46.0 \\
+      % Skyvern Token: bu_vs_skyvern.md §1.1 per-task avg, in K.
+      % Skyvern GPT-5.2=run 074322 (10 tasks), Claude=run 074815 (10
+      % tasks), Gemini-2.5-F=run 081927 (187 tasks)
+      % BU-Hybrid Token: bu_vs_skyvern.md §1.2. GPT-5.2=run 194526
+      % (controlled), DeepSeek=run 105813
+      \textbf{Input Token (K)} & 187 & 282 & 254 & 320 & 451 & 215 & 280
+      & 324 & 292 & 368 & 519 & 208 & 317 & 285 & 361 & 512
+      & 278 \\
+      \textbf{Output Token (K)} & 6.0 & 7.1 & 5.8 & 6.8 & 11.9 & 6.9 & 7.0
+      & 8.2 & 6.7 & 7.8 & 13.7 & 6.4 & 7.7 & 6.2 & 7.3 & 13.2
+      & 3.2 \\
+      \bottomrule
+    \end{tabular}%
+  }
+\end{table*}
+

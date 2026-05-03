@@ -1,0 +1,39 @@
+% \begin{table*}[t]
+% \centering
+% \small
+% \setlength{\tabcolsep}{6pt}
+% \caption{\textbf{Evaluation stability across benchmarks.} We report the mean and standard deviation (Std) of success rate (SR, \%) over repeated evaluations. Lower Std indicates better stability.}
+% \label{tab:judge_stability_4bench}
+
+% \resizebox{\textwidth}{!}{%
+% \begin{tabular}{l cccc cccc}
+% \toprule
+% \multirow{2}{*}{Evaluator} &
+% \multicolumn{4}{c}{Mean SR (\%) $\uparrow$} &
+% \multicolumn{4}{c}{Std of SR (\%) $\downarrow$} \\
+% \cmidrule(lr){2-5} \cmidrule(lr){6-9}
+% & VWA & WA & Wk++ & LexBench & VWA & WA & Wk++ & LexBench \\
+% \midrule
+
+% WebJudge (GPT-4o)
+% & 31.5 & 46.2 & 9.2 & 50.6
+% & 2.3 & 3.1 & 3.6 & 3.9 \\
+
+% WebJudge (o4-mini)
+% & 18.5 & 33.3 & 3.5 & 49.9
+% & 2.6 & 3.4 & 3.9 & 4.2 \\
+
+% WebJudge-7B
+% & 22.8 & 44.9 & 10.3 & 48.9
+% & 2.1 & 2.8 & 3.2 & 3.7 \\
+
+% \midrule
+% \rowcolor{tableblue}
+% LexJudge (Ours)
+% & 31.7 & 46.5 & 9.4 & 50.6
+% & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} & \textbf{0.0} \\
+
+% \bottomrule
+% \end{tabular}%
+% }
+% \end{table*}

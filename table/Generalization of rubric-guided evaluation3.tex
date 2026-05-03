@@ -1,0 +1,35 @@
+\begin{table*}[t]
+\centering
+\small
+\setlength{\tabcolsep}{6pt}
+\caption{\textbf{Main results.} Agent success rate (SR) measured by human evaluation and WebJudge, and agreement rate (AR) between WebJudge and human judgments.}
+\label{tab:lexjudge_generalization}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{l c cc cc cc cc cc}
+\toprule
+\multirow{2}{*}{Agent} & \multirow{2}{*}{Human Eval (SR)} 
+& \multicolumn{2}{c}{WebJudge (GPT-4o)} 
+& \multicolumn{2}{c}{WebJudge (o4-mini)} 
+& \multicolumn{2}{c}{WebJudge-7B}
+& \multicolumn{2}{c}{LexJudge(GPT-4o)}
+& \multicolumn{2}{c}{LexJudge(o4-mini)} \\
+\cmidrule(lr){3-4} 
+\cmidrule(lr){5-6} 
+\cmidrule(lr){7-8} 
+\cmidrule(lr){9-10}
+\cmidrule(lr){11-12}
+& & SR & AR & SR & AR & SR & AR & SR & AR & SR & AR \\
+\midrule
+SeeAct                    & 30.7 & 39.8 & 86.7 & 30.0 & 85.3 & 28.0 & 86.0 &  -- & -- & -- & -- \\
+Agent-E                   & 28.0 & 34.7 & 86.0 & 27.0 & 86.3 & 26.0 & 87.3 &  -- & -- & -- & -- \\
+Browser Use               & 30.0 & 40.1 & 81.4 & 26.0 & 89.3 & 24.3 & 88.3 &  -- & -- & -- & -- \\
+Claude Computer Use 3.5   & 29.0 & 35.8 & 86.3 & 24.0 & 87.0 & 26.0 & 89.7 &  -- & -- & -- & -- \\
+Claude Computer Use 3.7   & 56.3 & 59.7 & 79.1 & 47.3 & 82.3 & 48.7 & 84.3 &  -- & -- & -- & -- \\
+OpenAI Operator           & \textbf{61.3} & \textbf{71.8} & 81.8 & \textbf{58.3} & 83.7 & \textbf{59.0} & 86.3 &  -- & -- & -- & -- \\
+\midrule
+\rowcolor{tableblue}
+Avg Gap / AR              & --   & 7.8  & 83.6 & 3.8  & 85.7 & 3.9  & 87.0 &  -- & -- & -- & -- \\
+\bottomrule
+\end{tabular}
+}
+\end{table*}

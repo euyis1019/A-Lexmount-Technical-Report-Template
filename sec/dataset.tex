@@ -1,0 +1,44 @@
+\section{LexBench-Browser Dataset}
+\label{sec:dataset}
+
+\subsection{Design Principles}
+
+LexBench-Browser is a purely online evaluation dataset: tasks are executed on real websites in real time and verified online. Powered by the LexBench Platform (\S\ref{sec:platform}) with login-session management, CAPTCHA handling, and robust session stability, LexBench-Browser systematically includes interaction workflows that were previously difficult to benchmark due to infrastructural barriers.
+
+To reflect real-world usage, we build LexBench-Browser around three task-design principles:
+
+\textbf{Balancing Retrieval and Execution.} Existing online benchmarks focus predominantly on information retrieval tasks, a category that overlaps substantially with Deep Research and other information-oriented agents. We construct our dataset around tasks that users genuinely wish to delegate to agents, balancing browsing-oriented needs such as search and comparison with transactional needs that directly complete operational workflows on behalf of users---cross-platform price comparison and shopping-cart management, social-media content publishing, online document collaboration, and project-kanban operations. The latter more directly represents the primary usage patterns of browser agents in real-world services.
+
+\textbf{Safety in Live Environments.} When agents truly execute tasks on behalf of users, safety becomes critical. Online environments naturally expose risks such as phishing, social engineering, and deceptive interface patterns; we therefore incorporate safety-related scenarios during the task design phase and introduce a distinct scoring paradigm in \S\ref{sec:evaluation}.
+
+\textbf{Bilingual Coverage.} Existing benchmarks concentrate almost exclusively on English websites, yet Chinese and English each constitute approximately comparable shares of global web content~\cite{chinese_english_web}, and the Chinese internet supports a massive user base with a distinctive service ecosystem whose service formats and interaction conventions differ markedly from those of English websites. We adopt bilingual Chinese--English coverage as a controlled comparison setting, systematically examining cross-language and cross-interaction-paradigm generalization without introducing excessive language variables.
+
+\subsection{Task Categories and Levels}
+
+\textbf{Task Types and Level Design.} We divide tasks into two categories: \textit{Information Retrieval (T1)} encompasses search, localization, and fact-verification workflows for obtaining web information, with the goal of producing verifiable information results from online pages and dynamic content; \textit{Task Execution (T2)} captures stateful operations on user-bound resources---agents must manipulate user-specific data such as account settings, personal content, or service configurations, producing tangible changes to the user's digital state. LexBench-Browser comprises 387 tasks across 170+ websites, with approximately 50\% requiring login support (statistics in Appendix~\ref{app:dataset_stats}; comparison summary in \cref{tab:dataset_comparison}).
+
+To explicitly encode whether login is required and the degree of online load and risk into the task structure, we organize tasks into three tiers: \textit{L1} denotes online workflows completable without login; \textit{L2} denotes workflows that require login and session maintenance, potentially accompanied by CAPTCHA barriers; \textit{L3} extends L2 by introducing stronger real-world load and risk factors---for example, data-mining-type interactions involving large-scale in-site browsing and filtering, or security-related scenarios closer to real threat surfaces. We prioritize high-traffic websites and their service pages containing substantial real-time information, making tasks more dependent on in-site real-time state and current information, reducing agents' ability to bypass site interaction via search engines, and bringing evaluation closer to real-world usage.
+
+\textbf{AI Safety Evaluation.} Unlike static benchmarks relying on pre-crafted adversarial prompts, our safety evaluation operates on real websites where threats emerge organically: phishing sites indexed by search engines, social engineering in customer-service dialogues, and deceptive interface designs. We include 20+ safety tasks covering phishing attacks, illegal operation requests, and privacy leakage inducement; the asymmetric nature of safety evaluation motivates a distinct scoring paradigm in \S\ref{sec:evaluation}.
+
+\subsection{Agent-in-the-Loop Annotation}
+
+We adopt an agent-in-the-loop methodology: (1) execute candidate tasks using state-of-the-art Browser agents, (2) semi-automatically extract evaluation criteria with human review, (3) determine feasibility and complete annotation for failed cases.
+
+\textbf{Rubric Schema.} For task $q$, we define rubric $R$ that transforms evaluation from open-ended assessment into structured verification.
+Intuitively, we separate two roles that are often conflated in LLM-based evaluation: defining what success means and verifying whether success was achieved. We encode the former as stable, annotation-time requirements, and the latter as a verification procedure that can leverage deployment feedback without changing the requirements themselves.
+Consider the trajectory space $\mathcal{T}$ connecting initial state $s_0$ to goal state $s_*$. Unlike feature-based approaches that characterize success by proximity to a reference trajectory, our rubric defines success \textit{extensionally}---by specifying boundary conditions that trajectories must satisfy. We partition $R$ by epistemic status:
+\begin{equation}
+R = (R_{\text{norm}}, R_{\text{emp}})
+\label{eq:rubric_partition_dataset}
+\end{equation}
+\textit{Normative specifications} $R_{\text{norm}}$ define the success region through boundary conditions established during annotation: critical milestones (\texttt{key\_points}) and weighted evaluation dimensions (\texttt{scoring\_criteria}). These conditions determine membership in the success region:
+\begin{equation}
+\mathcal{T}^* = \{\tau \in \mathcal{T} : \tau \models R_{\text{norm}}\}
+\label{eq:success_region_dataset}
+\end{equation}
+\textit{Empirical patterns} $R_{\text{emp}}$ provide judgment context accumulated through deployment: failure patterns (\texttt{common\_mistakes}) that help identify trajectories erroneously approaching the boundary of $\mathcal{T}^*$, and alternative valid strategies (\texttt{valid\_paths}) that prevent correct-but-different trajectories from being rejected.
+
+Critically, $R_{\text{emp}}$ does not alter the success region $\mathcal{T}^*$---it improves the judge's ability to accurately verify membership.
+Concretely, $R_{\text{emp}}$ is intended to reduce false positives and false negatives that arise near the decision boundary, by capturing recurring failure modes and legitimate alternative strategies observed during execution.
+As $R_{\text{emp}}$ accumulates through deployment (\S\ref{sec:evaluation}), recognition accuracy improves while the success criterion remains stable. Complete schema specification appears in Appendix~\ref{app:schema}.
