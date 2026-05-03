@@ -1,0 +1,26 @@
+{
+    "stamp": true,
+    "sources": [
+        {
+            "usage": "toplevel",
+            "filename": "example.tex"
+        },
+        {
+            "usage": "ignore",
+            "filename": "assets/Optimistic.ttf"
+        },
+        {
+            "usage": "ignore",
+            "filename": "assets/optimistic.tfm"
+        },
+        {
+            "usage": "ignore",
+            "filename": "assets/plainnat.bst"
+        }
+    ],
+    "spec_version": 1,
+    "texlive_version": "2025",
+    "process": {
+        "compiler": "pdflatex"
+    }
+}

@@ -1,0 +1,75 @@
+\documentclass{lexmount}
+% twocolumn option also available, but single-column is the default
+
+% Optional packages commonly used in technical reports
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{xspace}
+\usepackage{fontawesome}
+\usepackage{lipsum} % only for placeholder text in this example
+
+% --- Title block ---
+\title{A Lexmount Technical Report Template}
+
+\author[*]{Yifu Guo}
+\affiliation[1]{Lexmount}
+\contribution[*]{Corresponding author}
+
+\email{yifu.guo@lexmount.com}
+
+\date{\today}
+
+% --- Top link bar (4 slots; replace placeholder URLs as needed) ---
+\headercontent{
+    \begin{tabular}{cccc}
+        \href{https://www.github.com}{\faGithub\ Code} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faDatabase\ Models} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faFileTextO\ arXiv} &
+        \hspace{1.5em}
+        \href{https://www.github.com}{\faGlobe\ Project}
+    \end{tabular}
+}
+
+% --- Abstract ---
+\abstract{
+This is a minimal example showing the Lexmount technical report template
+in action. The title block, author affiliations, contact email, and
+top link bar are all rendered inside the rounded brand-color tcolorbox
+above. Replace this abstract with the actual paper abstract. The body
+that follows demonstrates section formatting, citations, and figure /
+table captions using the class defaults.
+}
+
+\begin{document}
+\thispagestyle{firstheader}
+\maketitle
+
+\section{Introduction}
+\label{sec:intro}
+
+This document is the minimal working example for the \texttt{lexmount}
+class. It demonstrates the title block, the link bar, and the standard
+section / subsection formatting. Citations use bracketed numeric style,
+e.g.\ \citep{example2024}.
+
+\subsection{Subsection example}
+\lipsum[1]
+
+\section{Method}
+\label{sec:method}
+
+\lipsum[2]
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+Replace the contents of this example with your own sections. To split
+the paper into multiple files, use \verb|\input{sections/intro}| etc.,
+following the convention from the \texttt{lexbench} source tree.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
