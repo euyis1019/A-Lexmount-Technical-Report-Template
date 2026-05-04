@@ -171,7 +171,7 @@
             \vskip 0.2cm
             {\centering {\color{metabg}\affiliationlist}\par}
             \vskip 0.1cm
-            {\color{metabg}\contributionlist}\par
+            {\centering {\color{metabg}\contributionlist}\par}
 
             \ifdefempty{\emaillist}{}{
                 \vskip 0.1cm
