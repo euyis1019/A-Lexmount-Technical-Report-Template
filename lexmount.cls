@@ -121,7 +121,7 @@
 \renewcommand\author[2][]{\addtolist[#1]{#2}{\authorlist}{\authorformat}{, }}
 
 \newcommand\affiliationlist{}
-\newcommand\affiliationformat[2][]{{\normalsize $^{#1}$#2}}
+\newcommand\affiliationformat[2][]{{\normalsize \ifx\\#1\\\else$^{#1}$\fi#2}}
 \newcommand\affiliation[2][]{\addtolist[#1]{#2}{\affiliationlist}{\affiliationformat}{ }}
 
 \newcommand\contributionlist{}
@@ -169,7 +169,7 @@
             \vskip 0.2cm
             {\color{metabg}\authorlist}\par
             \vskip 0.2cm
-            {\color{metabg}\affiliationlist}\par
+            {\centering {\color{metabg}\affiliationlist}\par}
             \vskip 0.1cm
             {\color{metabg}\contributionlist}\par
 
