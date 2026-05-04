@@ -52,6 +52,16 @@
     \renewcommand{\headrulewidth}{1pt}
 }
 
+% Running header for page 2+: small logo only, centered page number, no rules
+\fancypagestyle{lexmountrun}{
+    \fancyhf{}
+    \fancyhead[R]{\includegraphics[height=0.5cm]{assets/lexmount_logo.png}}
+    \fancyfoot[C]{\thepage}
+    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\footrulewidth}{0pt}
+}
+\AtBeginDocument{\pagestyle{lexmountrun}}
+
 % References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{hyperref}
 \RequirePackage[noabbrev,nameinlink,capitalize]{cleveref}
