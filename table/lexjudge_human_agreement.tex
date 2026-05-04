@@ -1,11 +1,14 @@
-% === LexJudge Human Agreement Table ===
-\begin{table}[t]
+% === LexJudge Human Agreement Table (half-width, text-wrapped) ===
+% NOTE: wraptable is non-floating — it stays where it is placed and the
+% following paragraph(s) wrap around it. Keep this \input directly before
+% the paragraph that should flow alongside the table.
+\begin{wraptable}{r}{0.5\textwidth}
+\vspace{-\baselineskip}
 \caption{Agreement with human judgment on 200 sampled trajectories (three expert annotators). $\kappa$: Cohen's Kappa; Tok.: average input tokens per trajectory (in thousands). Only Results Judge implementation details are provided in~\cref{app:only_results_judge}.}
 \centering
-\small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.05}
-\resizebox{\columnwidth}{!}{%
+\resizebox{0.5\textwidth}{!}{%
 \begin{tabular}{@{}lcccccc@{}}
 \toprule
 \textbf{Method} & \textbf{Acc.} & \textbf{FNR} & \textbf{FPR} & $\boldsymbol{\kappa}$ & \textbf{Tok.} & \textbf{Calls} \\
@@ -34,4 +37,4 @@
 \end{tabular}%
 }
 \label{tab:lexjudge_human_agreement}
-\end{table}
+\end{wraptable}

@@ -22,6 +22,7 @@
 % Graphics %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{graphicx}
 \RequirePackage{subcaption}
+\RequirePackage{wrapfig} % wrapfigure / wraptable for text wrapping around floats
 
 % Tables %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage{booktabs}
