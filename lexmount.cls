@@ -52,12 +52,20 @@
     \renewcommand{\headrulewidth}{1pt}
 }
 
-% Running header for page 2+: small logo only, centered page number, no rules
+% Running header for page 2+: same logo+wordmark+rule as firstheader, plus centered page number
 \fancypagestyle{lexmountrun}{
     \fancyhf{}
-    \fancyhead[R]{\includegraphics[height=0.5cm]{assets/lexmount_logo.png}}
+    \fancyhead[R]{%
+        \begin{minipage}[c]{1.26cm}\centering
+            \includegraphics[height=1.26cm]{assets/lexmount_logo.png}%
+        \end{minipage}%
+        \hspace{0.08cm}%
+        \begin{minipage}[c]{3.2cm}
+            {\sffamily\bfseries\color{wordmark}\fontsize{22pt}{26pt}\selectfont Lexmount}%
+        \end{minipage}%
+    }
     \fancyfoot[C]{\thepage}
-    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand{\headrulewidth}{1pt}
     \renewcommand{\footrulewidth}{0pt}
 }
 \AtBeginDocument{\pagestyle{lexmountrun}}
@@ -200,3 +208,16 @@
 % Lightweight authoring helpers %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Single review/todo macro (toggle visibility via class option later if needed)
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+
+% Appendix table-of-contents %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Use after \appendix to auto-generate a local TOC that lists only the appendix
+% sections / subsections. Convention: every Lexmount report includes this at
+% the start of its appendix block.
+\RequirePackage{etoc}
+\newcommand{\appendixtoc}{%
+    \etocsetnexttocdepth{subsection}%
+    \etocsettocstyle
+        {\par\noindent{\Large\sffamily\bfseries Contents of the Appendix}\par\vspace{0.5em}}%
+        {\vspace{0.5em}}%
+    \localtableofcontents
+}
