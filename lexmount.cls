@@ -211,14 +211,29 @@
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
 
 % Appendix table-of-contents %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Use after \appendix to auto-generate a local TOC that lists only the appendix
-% sections / subsections. Convention: every Lexmount report includes this at
-% the start of its appendix block.
-\RequirePackage{etoc}
+% Convention: call \appendixtoc right after \appendix in your appendix file.
+% Renders "Contents of the Appendix" followed by a TOC listing only the
+% appendix's \section / \subsection entries.
+%
+% Implementation: hook \appendix so subsequent \addcontentsline{toc}{...}{...}
+% calls also mirror to a private .atoc aux file, which \appendixtoc reads via
+% the standard \@starttoc mechanism. Two compile passes are needed for the
+% entries to populate, same as any LaTeX TOC.
+\let\lex@orig@addcontentsline\addcontentsline
+\let\lex@orig@appendix\appendix
+\renewcommand{\appendix}{%
+    \lex@orig@appendix
+    \renewcommand{\addcontentsline}[3]{%
+        \lex@orig@addcontentsline{##1}{##2}{##3}%
+        \ifstrequal{##1}{toc}{%
+            \lex@orig@addcontentsline{atoc}{##2}{##3}%
+        }{}%
+    }%
+}
+
 \newcommand{\appendixtoc}{%
-    \etocsetnexttocdepth{subsection}%
-    \etocsettocstyle
-        {\par\noindent{\Large\sffamily\bfseries Contents of the Appendix}\par\vspace{0.5em}}%
-        {\vspace{0.5em}}%
-    \localtableofcontents
+    \par\noindent{\Large\sffamily\bfseries Contents of the Appendix}\par
+    \vspace{0.5em}
+    \@starttoc{atoc}%
+    \vspace{0.5em}
 }
