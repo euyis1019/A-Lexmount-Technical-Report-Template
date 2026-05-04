@@ -107,13 +107,13 @@ Since each iteration incurs computational cost, we adopt early stopping when mar
 \textbf{Agreement with Human Judgment.}
 We uniformly sample 200 trajectories from LexBench-Browser according to the difficulty distribution and have three expert annotators label each trajectory. Detailed annotation guidelines are provided in \Cref{app:how_to_labeler}.
 
-% === Human Agreement Table ===
-\input{table/lexjudge_human_agreement}
+
 
 As shown in \cref{tab:lexjudge_human_agreement}, when our evaluation interface can supply a sufficiently rich set of intermediate screenshots to the judge (i.e., without aggressive truncation of visual context), LexJudge achieves the highest accuracy and strongest agreement with human judgment. With GPT-4.1, LexJudge attains 90\% accuracy ($\kappa = 0.80$, substantial agreement), outperforming both WebJudge (78\%, $\kappa = 0.57$) and Only Results Judge (78\%, $\kappa = 0.56$) by a wide margin. A consistent advantage holds with GPT-4o, where LexJudge (86\%, $\kappa = 0.72$) surpasses both baselines. Notably, LexJudge with GPT-4.1 also exceeds WebJudge's recommended o4-mini configuration (81\%). This advantage partly stems from lower false positive rates, benefiting from the \texttt{common\_mistakes} field in $R_{\text{emp}}$, which provides explicit guidance on subtle failure patterns that are easy to overlook.
 
 However, for models with more limited multimodal input capacity---Claude Sonnet 4.5 and Gemini 3 Flash---all process-based methods exhibit degraded performance. LexJudge with Claude Sonnet 4.5 (80\%) falls behind its Only Results counterpart (86\%), and with Gemini 3 Flash drops further to 60\% versus 72\%. WebJudge shows the same pattern, achieving only 64\% with Claude Sonnet 4.5 and 56\% with Gemini 3 Flash. This consistent degradation across both process-based methods suggests that their advantage hinges on sufficient intermediate visual context. When our evaluation interface must cap or drop intermediate screenshots due to per-request attachment limits, the judge receives truncated evidence, increasing noise and making result-only evaluation more robust. From a cost perspective, LexJudge requires a single API call per trajectory---a 20$\times$ reduction over WebJudge---while consuming approximately 18$\times$ fewer tokens. Combined with its accuracy advantage under adequate multimodal capacity, LexJudge provides the best accuracy--efficiency tradeoff among all evaluated methods.
-
+% === Human Agreement Table ===
+\input{table/lexjudge_human_agreement}
 \input{table/retry.tex}
 \textbf{Fine-Grained Feedback Effectiveness.}
 The diagnostic insights reported in \cref{subsec:main_results}---identifying that task execution lags information retrieval, authentication creates barriers, and Chinese websites present unique challenges---were enabled by LexJudge's detailed feedback. During our analysis, structured scoring outputs allowed us to rapidly pinpoint failure modes: which specific rubric items agents failed, which known error patterns they matched, and at what stage execution diverged. This stands in contrast to binary evaluation, where diagnosing systematic weaknesses requires manual inspection of hundreds of trajectories.
