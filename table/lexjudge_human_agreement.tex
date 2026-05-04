@@ -5,7 +5,8 @@
 \small
 \setlength{\tabcolsep}{3pt}
 \renewcommand{\arraystretch}{1.05}
-\begin{tabularx}{\columnwidth}{@{}lcccccc@{}}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{@{}lcccccc@{}}
 \toprule
 \textbf{Method} & \textbf{Acc.} & \textbf{FNR} & \textbf{FPR} & $\boldsymbol{\kappa}$ & \textbf{Tok.} & \textbf{Calls} \\
 \midrule
@@ -30,6 +31,7 @@
 \quad Claude Sonnet 4.5    & 86\% & 22\% & 4\% & 0.72 & 5.0k & 1 \\
 \quad Gemini 3 Flash       & 72\% & 52\% & 0\% & 0.46 & 4.0k & 1 \\
 \bottomrule
-\end{tabularx}
+\end{tabular}%
+}
 \label{tab:lexjudge_human_agreement}
 \end{table}
